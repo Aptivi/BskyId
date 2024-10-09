@@ -1,0 +1,35 @@
+name: Prepare release
+
+on:
+  push:
+    tags:
+      - '**'
+    
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
+          ref: ${{ github.ref }}
+      - name: Release Changelogs
+        id: release-changes
+        run: |
+          echo "SUBJECT=$(cat CHANGES.TITLE)" >> "$GITHUB_OUTPUT"
+          echo 'BODY<<EOF' >> "$GITHUB_OUTPUT"
+          cat CHANGES >> "$GITHUB_OUTPUT"
+          echo 'EOF' >> "$GITHUB_OUTPUT"
+      - name: Release Making
+        uses: softprops/action-gh-release@v2
+        with:
+          body_path: CHANGES
+          name: ${{ steps.release-changes.outputs.SUBJECT }}
+      - name: Notify build
+        uses: tsickert/discord-webhook@v6.0.0
+        with:
+          webhook-url: ${{ secrets.WEBHOOK_URL }}
+          content: "<:terminaux:1268905031021629514> ${{ steps.release-changes.outputs.SUBJECT }} <:terminaux:1268905031021629514>\n\n${{ steps.release-changes.outputs.BODY }}"

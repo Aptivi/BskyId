@@ -1,0 +1,17 @@
+Source: bskyid
+Section: net
+Priority: optional
+Maintainer: Aptivi CEO <ceo@aptivi.anonaddy.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.4.0
+Homepage: https://aptivi.gitbook.io/bskyid-manual
+Vcs-Browser: https://github.com/Aptivi/BskyId
+Vcs-Git: https://github.com/Aptivi/BskyId.git
+
+Package: bskyid
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Obtain your BlueSky ID from your BlueSky handle
+ BskyId is an unofficial tool to obtain your BlueSky ID from your BlueSky
+ handle associated with your account. It's built with a shell script that
+ works with all Linux platforms that support Bash.

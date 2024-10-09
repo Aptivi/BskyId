@@ -1,0 +1,68 @@
+#!/bin/bash
+
+#   BskyId  Copyright (C) 2024  Aptivi
+# 
+#   This file is part of BskyId
+# 
+#   BskyId is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+# 
+#   BskyId is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+# 
+#   You should have received a copy of the GNU General Public License
+#   along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# Some variables
+ADDRESS="https://bsky.social/xrpc/com.atproto.identity.resolveHandle?handle="
+GREEN=$(tput setaf 2 > /dev/null 2>&1)
+RED=$(tput setaf 1 > /dev/null 2>&1)
+RESET=$(tput sgr0 > /dev/null 2>&1)
+
+# Convenience functions
+checkerror() {
+    if [ $1 != 0 ]
+    then
+        printf "${RED}$2${RESET} - Error $1\n" >&2
+        exit $1
+    fi
+}
+
+# Check for arguments
+PLAIN=0
+if [[ "$#" -le 0 ]]
+then
+    printf "${RED}Handle is required.${RESET}\n" >&2
+    printf "Usage: $0 <handle> [-plain]\n" >&2
+    exit 1
+fi
+for SWITCH in "$@"
+do
+    test "$2" == "-plain" && PLAIN=1
+done
+
+# Actual code
+HANDLE=$1
+HANDLEIDJSON=$(curl -s $ADDRESS$HANDLE)
+checkerror $? "Can't download handle information"
+if [[ "$PLAIN" -ne 0 ]]
+then
+    printf "$HANDLEIDJSON\n"
+else
+    HANDLEPARSED=$(printf "${HANDLEIDJSON}" | sed -e 's/,/\n/g;s/"//g;s/{//g;s/}//g')
+    HANDLEID=$(printf "${HANDLEPARSED}" | grep "did:" | cut -b 5-)
+    HANDLEERROR=$(printf "${HANDLEPARSED}" | grep "error:" | cut -b 7-)
+    HANDLEERRORMSG=$(printf "${HANDLEPARSED}" | grep "message:" | cut -b 9-)
+    if [ -z "${HANDLEID}" ]
+    then
+        printf "${RED}Handle ID can't be obtained.${RESET}\n" >&2
+        printf "${RED}${HANDLEERROR}: ${HANDLEERRORMSG}${RESET}\n" >&2
+        exit 1
+    else
+        printf "${GREEN}${HANDLEID}${RESET}"
+    fi
+fi
