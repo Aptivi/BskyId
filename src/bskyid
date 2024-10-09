@@ -63,6 +63,6 @@ else
         printf "${RED}${HANDLEERROR}: ${HANDLEERRORMSG}${RESET}\n" >&2
         exit 1
     else
-        printf "${GREEN}${HANDLEID}${RESET}"
+        printf "${GREEN}${HANDLEID}${RESET}\n"
     fi
 fi
