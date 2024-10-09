@@ -22,6 +22,10 @@ jobs:
           echo "SUBJECT=$(cat CHANGES.TITLE)" >> "$GITHUB_OUTPUT"
           echo 'BODY<<EOF' >> "$GITHUB_OUTPUT"
           cat CHANGES >> "$GITHUB_OUTPUT"
+          printf "\n- SHA256 sum of bskyid (Linux): " >> "$GITHUB_OUTPUT"
+          sha256sum src/bskyid >> "$GITHUB_OUTPUT"
+          printf "\n- SHA256 sum of bskyid (Windows): " >> "$GITHUB_OUTPUT"
+          sha256sum src/bskyid.ps1 >> "$GITHUB_OUTPUT"
           echo 'EOF' >> "$GITHUB_OUTPUT"
       - name: Release Making
         uses: softprops/action-gh-release@v2
