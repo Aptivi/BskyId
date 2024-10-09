@@ -24,16 +24,16 @@ jobs:
           cat CHANGES >> "$GITHUB_OUTPUT"
           printf "\n- SHA256 sum of bskyid (Linux): " >> "$GITHUB_OUTPUT"
           sha256sum src/bskyid >> "$GITHUB_OUTPUT"
-          printf "\n- SHA256 sum of bskyid (Windows): " >> "$GITHUB_OUTPUT"
+          printf "- SHA256 sum of bskyid (Windows): " >> "$GITHUB_OUTPUT"
           sha256sum src/bskyid.ps1 >> "$GITHUB_OUTPUT"
           echo 'EOF' >> "$GITHUB_OUTPUT"
       - name: Release Making
         uses: softprops/action-gh-release@v2
         with:
-          body_path: CHANGES
+          body: ${{ steps.release-changes.outputs.BODY }}
           name: ${{ steps.release-changes.outputs.SUBJECT }}
       - name: Notify build
         uses: tsickert/discord-webhook@v6.0.0
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
-          content: "<:terminaux:1268905031021629514> ${{ steps.release-changes.outputs.SUBJECT }} <:terminaux:1268905031021629514>\n\n${{ steps.release-changes.outputs.BODY }}"
+          content: "<:branding:1268904791199842385> ${{ steps.release-changes.outputs.SUBJECT }} <:branding:1268904791199842385>\n\n${{ steps.release-changes.outputs.BODY }}"
