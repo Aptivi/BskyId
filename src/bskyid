@@ -19,9 +19,10 @@
 
 # Some variables
 ADDRESS="https://bsky.social/xrpc/com.atproto.identity.resolveHandle?handle="
-GREEN=$(tput setaf 2 > /dev/null 2>&1)
-RED=$(tput setaf 1 > /dev/null 2>&1)
-RESET=$(tput sgr0 > /dev/null 2>&1)
+GREEN=$(tput setaf 2 2>/dev/null)
+RED=$(tput setaf 1 2>/dev/null)
+RESET=$(tput sgr0 2>/dev/null)
+PLAIN=0
 
 # Convenience functions
 checkerror() {
@@ -33,16 +34,21 @@ checkerror() {
 }
 
 # Check for arguments
-PLAIN=0
 if [[ "$#" -le 0 ]]
 then
     printf "${RED}Handle is required.${RESET}\n" >&2
-    printf "Usage: $0 <handle> [-plain]\n" >&2
+    printf "Usage: $0 <handle> [-plain/-nocolor]\n" >&2
     exit 1
 fi
 for SWITCH in "$@"
 do
-    test "$2" == "-plain" && PLAIN=1
+    test "$SWITCH" == "-plain" && PLAIN=1
+    if [ "$SWITCH" == "-nocolor" ]
+    then
+        GREEN=""
+        RED=""
+        RESET=""
+    fi
 done
 
 # Actual code
