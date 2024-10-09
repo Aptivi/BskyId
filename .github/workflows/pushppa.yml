@@ -3,7 +3,7 @@ name: Push to PPA
 on:
   push:
     tags:
-      - 'v0.1.*'
+      - '**'
 
 jobs:
   build:
