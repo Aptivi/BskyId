@@ -1,5 +1,20 @@
 # BskyId
 
+<div align = center>
+
+<br>
+<br>
+    
+<img
+  src = 'https://cdn.jsdelivr.net/gh/Aptivi/BskyId@main/OfficialAppIcon-BskyId-512.png'
+  width = 256
+  align = center
+/>
+
+<br>
+
+</div>
+
 This project, written in Bash and PowerShell, is a simple tool that gives you your BlueSky ID that is unique to your username. Just get your BlueSky handle from your BlueSky account that you can find over the [BlueSky](https://bsky.app) website, and pass it to the script. This ID is a unique identifier for your BlueSky account and can't be edited.
 
 ## Usage
