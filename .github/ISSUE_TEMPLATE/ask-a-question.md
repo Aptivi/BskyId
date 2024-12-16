@@ -1,6 +1,6 @@
 ---
 name: Ask a question
-about: Ask us anything about BskyId.
+about: Ask us anything about this project.
 title: "[Q&A] [FeatureName] - [Question]"
 labels: ''
 assignees: ''
