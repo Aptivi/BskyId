@@ -13,6 +13,5 @@ install:
 	mkdir -m 755 -p $(FDESTDIR)/bin $(FDESTDIR)/share/man/man1/
 	install -m 755 -t $(FDESTDIR)/bin/ $(BINARIES)
 	install -m 644 -t $(FDESTDIR)/share/man/man1/ $(MANUALS)
-	gzip $(FDESTDIR)/share/man/man1/bskyid.1
 
 # This makefile is just a wrapper for tools scripts.
