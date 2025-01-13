@@ -1,13 +1,18 @@
 BINARIES = src/bskyid
 MANUALS = src/bskyid.1
-DESTDIR = /usr/local
+
+ifndef DESTDIR
+FDESTDIR := /usr/local
+else
+FDESTDIR := $(DESTDIR)/usr
+endif
 
 .PHONY: install
 
 install:
-	mkdir -m 755 -p $(DESTDIR)/bin $(DESTDIR)/share/man/man1/
-	install -m 755 -t $(DESTDIR)/bin/ $(BINARIES)
-	install -m 755 -t $(DESTDIR)/share/man/man1/ $(MANUALS)
-	gzip $(DESTDIR)/share/man/man1/bskyid.1
+	mkdir -m 755 -p $(FDESTDIR)/bin $(FDESTDIR)/share/man/man1/
+	install -m 755 -t $(FDESTDIR)/bin/ $(BINARIES)
+	install -m 644 -t $(FDESTDIR)/share/man/man1/ $(MANUALS)
+	gzip $(FDESTDIR)/share/man/man1/bskyid.1
 
 # This makefile is just a wrapper for tools scripts.
