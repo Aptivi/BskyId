@@ -21,6 +21,3 @@
 
 override_dh_auto_build:
 	printf "No need to build\n"
-
-override_dh_auto_install:
-	$(MAKE) debian-install
