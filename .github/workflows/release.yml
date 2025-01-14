@@ -24,7 +24,7 @@ jobs:
           cat CHANGES >> "$GITHUB_OUTPUT"
           printf "\n- SHA256 sum of bskyid (Linux): " >> "$GITHUB_OUTPUT"
           sha256sum src/bskyid >> "$GITHUB_OUTPUT"
-          printf "- SHA256 sum of bskyid (Windows): " >> "$GITHUB_OUTPUT"
+          printf -- "- SHA256 sum of bskyid (Windows): " >> "$GITHUB_OUTPUT"
           sha256sum src/bskyid.ps1 >> "$GITHUB_OUTPUT"
           echo 'EOF' >> "$GITHUB_OUTPUT"
       - name: Release Making
