@@ -1,3 +1,9 @@
+bskyid (1.0.1-1) noble; urgency=medium
+
+  * Changed install target to generic
+
+ -- Aptivi CEO <ceo@aptivi.anonaddy.com>  Tue, 14 Jan 2025 09:57:31 +0300
+
 bskyid (1.0.0-1) noble; urgency=medium
 
   * Initial release
