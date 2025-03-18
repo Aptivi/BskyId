@@ -2,7 +2,6 @@
 # Set default behavior to automatically normalize line endings.
 ###############################################################################
 * text=auto
-PKGBUILD* text eol=lf
 
 ###############################################################################
 # Set default behavior for command prompt diff.
@@ -62,3 +61,7 @@ PKGBUILD* text eol=lf
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+*.sh text eol=lf
+PKGBUILD* text eol=lf
+*.cmd text=auto eol=crlf
