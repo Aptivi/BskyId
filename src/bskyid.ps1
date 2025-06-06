@@ -21,20 +21,32 @@ $address = "https://bsky.social/xrpc/com.atproto.identity.resolveHandle?handle="
 # Check for arguments and look for switches
 $argCount = $args.Length
 $plain = 0
+$asText = 0
 for ($idx = 1; $idx -lt $argCount; $idx++)
 {
     if ("$($args[$idx])" -eq "-plain")
     {
         $plain = 1
     }
+    if ("$($args[$idx])" -eq "-asText")
+    {
+        $asText = 1
+    }
 }
 if ($argCount -lt 1)
 {
-    throw "Provide a handle. Usage: bskyid.ps1 <handle> [-plain]"
+    throw "Provide a handle. Usage: bskyid.ps1 <handle> [-plain] [-asText]"
 }
 
 # Now, get the handle and return the handle ID
 $handle = $($args[0])
 $resultJson = $(Invoke-WebRequest -Uri $address$handle).Content
 $resultJsonObj = ConvertFrom-Json $resultJson
-Write-Output $(if ($plain) {$resultJson} else {$resultJsonObj.did})
+if ($plain)
+{
+    Write-Output $(if ($asText) {$resultJson} else {$resultJsonObj})
+}
+else
+{
+    Write-Output $({$resultJsonObj.did})
+}
