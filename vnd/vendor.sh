@@ -16,6 +16,10 @@ increment() {
     # Populate some of the files needed to replace the old version with the new version
     FILES=(
         "$ROOTDIR/PKGBUILD-REL"
+        "$ROOTDIR/.github/workflows/build-ppa-package-with-lintian.yml"
+        "$ROOTDIR/.github/workflows/build-ppa-package.yml"
+        "$ROOTDIR/.github/workflows/pushamend.yml"
+        "$ROOTDIR/.github/workflows/pushppa.yml"
     )
     for FILE in "${FILES[@]}"; do
         printf "Processing $FILE...\n"

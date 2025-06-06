@@ -28,8 +28,8 @@ jobs:
         run: |
           mv debian ..
           mv .github ..
-          tar cfv ../bskyid_1.0.1.orig.tar .
-          xz ../bskyid_1.0.1.orig.tar
+          tar cfv ../bskyid_1.0.2.orig.tar .
+          xz ../bskyid_1.0.2.orig.tar
           mv ../debian .
 
       - name: Build package
