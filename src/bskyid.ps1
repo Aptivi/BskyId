@@ -48,5 +48,5 @@ if ($plain)
 }
 else
 {
-    Write-Output $({$resultJsonObj.did})
+    Write-Output $($resultJsonObj.did)
 }
