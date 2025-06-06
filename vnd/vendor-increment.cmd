@@ -17,7 +17,7 @@ REM This script replaces old version with new version.
 echo Replacing...
 
 REM Change the below files
-set "releaseFiles=%ROOTDIR%\PKGBUILD-REL %ROOTDIR%\.github\workflows\build-ppa-package-with-lintian.yml %ROOTDIR%\.github\workflows\build-ppa-package.yml %ROOTDIR%\.github\workflows\pushamend.yml %ROOTDIR%\.github\workflows\pushppa.yml"
+set "releaseFiles=%ROOTDIR%\PKGBUILD-REL %ROOTDIR%\.github\workflows\build-ppa-package-with-lintian.yml %ROOTDIR%\.github\workflows\build-ppa-package.yml %ROOTDIR%\.github\workflows\pushamend.yml %ROOTDIR%\.github\workflows\pushppa.yml %ROOTDIR%\CHANGES.TITLE"
 for %%f in (%releaseFiles%) do (
     echo Processing %%f...
     powershell %ROOTDIR%\vnd\eng\incrementor.ps1 "%%f" "%oldVer%" "%newVer%"
