@@ -9,7 +9,7 @@ $tz = $offset.ToString("${tzoff}hhmm")
 
 $contents = $(Write-Output "bskyid (${newVersion}-1) noble; urgency=medium`n")
 $contents += $(Write-Output "`n")
-$contents += $(Write-Output "  * General improvements and bug fixes`n")
+$contents += $(Write-Output "  * Please populate changelogs here`n")
 $contents += $(Write-Output "`n")
 $contents += $(Write-Output " -- Aptivi CEO <ceo@aptivi.anonaddy.com>  $date $time $tz`n`n")
 

@@ -39,7 +39,7 @@ increment() {
     DEBIAN_CHANGES_ENTRY=$(cat <<EOF
 bskyid ($NEWVER-1) noble; urgency=medium
 
-  * Changed install target to generic
+  * Please populate changelogs here
 
  -- Aptivi CEO <ceo@aptivi.anonaddy.com>  $DEBIAN_CHANGES_DATE
 EOF
