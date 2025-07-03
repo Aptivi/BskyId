@@ -20,9 +20,9 @@ REM Change the below files
 set "releaseFiles="%ROOTDIR%\PKGBUILD-REL" "%ROOTDIR%\.github\workflows\build-ppa-package-with-lintian.yml" "%ROOTDIR%\.github\workflows\build-ppa-package.yml" "%ROOTDIR%\.github\workflows\pushamend.yml" "%ROOTDIR%\.github\workflows\pushppa.yml" "%ROOTDIR%\CHANGES.TITLE""
 for %%f in (%releaseFiles%) do (
     echo Processing %%f...
-    powershell -Command "& %ROOTDIR%\vnd\eng\incrementor.ps1 '%%f' '%oldVer%' '%newVer%'"
+    powershell -Command "& '%ROOTDIR%\vnd\eng\incrementor.ps1' '%%f' '%oldVer%' '%newVer%'"
 )
 
 REM Add Debian changelogs info
 echo Changing Debian changelogs info
-powershell -Command "& %ROOTDIR%\vnd\eng\debian-changes.ps1 '%ROOTDIR%\debian\changelog' '%newVer%'"
+powershell -Command "& '%ROOTDIR%\vnd\eng\debian-changes.ps1' '%ROOTDIR%\debian\changelog' '%newVer%'"
