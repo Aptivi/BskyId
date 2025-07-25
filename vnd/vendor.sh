@@ -20,6 +20,7 @@ increment() {
         "$ROOTDIR/.github/workflows/build-ppa-package.yml"
         "$ROOTDIR/.github/workflows/pushamend.yml"
         "$ROOTDIR/.github/workflows/pushppa.yml"
+        "$ROOTDIR/.gitlab/workflows/release.yml"
         "$ROOTDIR/CHANGES.TITLE"
     )
     for FILE in "${FILES[@]}"; do
