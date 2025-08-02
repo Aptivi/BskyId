@@ -8,7 +8,7 @@ url="https://aptivi.github.io"
 license=('GPL-3.0-or-later')
 depends=('bash')
 options=('!strip')
-source=("${pkgname}::git+https://github.com/Aptivi/BskyId#tag=v1.0.2")
+source=("${pkgname}::git+https://gitlab.com/aptivi/main/BskyId#tag=v1.0.2")
 sha256sums=('SKIP')
 
 package() {

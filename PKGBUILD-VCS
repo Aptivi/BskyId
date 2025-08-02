@@ -10,7 +10,7 @@ depends=('bash')
 provides=("${pkgname%-git}")
 conflicts=("${pkgname%-git}")
 options=('!strip')
-source=("${pkgname}::git+https://github.com/Aptivi/BskyId#branch=main")
+source=("${pkgname}::git+https://gitlab.com/aptivi/main/BskyId#branch=main")
 sha256sums=('SKIP')
 
 pkgver() {

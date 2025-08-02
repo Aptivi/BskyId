@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: BskyId
-Source: https://github.com/Aptivi/BskyId/blob/main/LICENSE
+Source: https://gitlab.com/aptivi/main/BskyId/blob/main/LICENSE
 
 Files: *
 Copyright: 2024 Aptivi <eoflaoevicecity@gmail.com>

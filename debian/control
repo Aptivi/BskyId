@@ -5,8 +5,8 @@ Maintainer: Aptivi CEO <ceo@aptivi.anonaddy.com>
 Build-Depends: debhelper-compat (= 13)
 Standards-Version: 4.4.0
 Homepage: https://aptivi.gitbook.io/bskyid-manual
-Vcs-Browser: https://github.com/Aptivi/BskyId
-Vcs-Git: https://github.com/Aptivi/BskyId.git
+Vcs-Browser: https://gitlab.com/aptivi/main/BskyId
+Vcs-Git: https://gitlab.com/aptivi/main/BskyId.git
 
 Package: bskyid
 Architecture: all
