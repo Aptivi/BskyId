@@ -1,7 +1,0 @@
-stages:
-  - prepare
-  - release
-  - launchpadppa
-
-include:
-  - '.gitlab/workflows/release.yml'
