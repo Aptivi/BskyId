@@ -32,8 +32,3 @@ jobs:
         with:
           body: ${{ steps.release-changes.outputs.BODY }}
           name: ${{ steps.release-changes.outputs.SUBJECT }}
-      - name: Notify build
-        uses: tsickert/discord-webhook@v6.0.0
-        with:
-          webhook-url: ${{ secrets.WEBHOOK_URL }}
-          content: "<:branding:1268904791199842385> ${{ steps.release-changes.outputs.SUBJECT }} <:branding:1268904791199842385>\n\n${{ steps.release-changes.outputs.BODY }}"
