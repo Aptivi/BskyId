@@ -1,0 +1,103 @@
+import os
+import datetime
+
+
+class VersionInfo():
+    def __init__(self, old_version, new_version):
+        # Nitrocid version
+        self.old_version = old_version
+        self.new_version = new_version
+        self.old_version_split = self.old_version.split('.')
+        self.new_version_split = self.new_version.split('.')
+        self.old_major = \
+            f'{self.old_version_split[0]}.' \
+            f'{self.old_version_split[1]}.' \
+            f'{self.old_version_split[2]}'
+        self.new_major = \
+            f'{self.new_version_split[0]}.' \
+            f'{self.new_version_split[1]}.' \
+            f'{self.new_version_split[2]}'
+
+
+def vnd_increment(old_version, new_version, api_versions):
+    time = datetime.datetime.now()
+    solution = os.path.dirname(os.path.abspath(__file__ + '/../'))
+
+    # Get old and new API versions and split them
+    version = VersionInfo(old_version, new_version)
+
+    # Replace the version in the CHANGES.TITLE file
+    changes_title_file = f"{solution}/CHANGES.TITLE"
+    changes_title_lines = []
+    with open(changes_title_file) as changes_title_stream:
+        changes_title_lines = changes_title_stream.readlines()
+    changes_title_lines[0] = changes_title_lines[0].replace(old_version,
+                                                            new_version)
+    with open(changes_title_file, 'w') as changes_title_stream:
+        changes_title_stream.writelines(changes_title_lines)
+    
+    # Replace the versions in the Arch Linux packaging files
+    arch_rel_file = f"{solution}/PKGBUILD-REL"
+    arch_rel_lines = []
+    with open(arch_rel_file) as arch_rel_stream:
+        arch_rel_lines = arch_rel_stream.readlines()
+    arch_rel_lines = process_arch_lines(arch_rel_lines, version)
+    with open(arch_rel_file, 'w') as arch_rel_stream:
+        arch_rel_stream.writelines(arch_rel_lines)
+    
+    # Replace the versions in the GitHub Actions workflows
+    workflows = {
+        f"{solution}/.github/workflows/build-ppa-package-with-lintian.yml",
+        f"{solution}/.github/workflows/build-ppa-package.yml",
+        f"{solution}/.github/workflows/pushamend.yml",
+        f"{solution}/.github/workflows/pushppa.yml",
+    }
+    for workflow in workflows:
+        workflow_lines = []
+        with open(workflow) as workflow_stream:
+            workflow_lines = workflow_stream.readlines()
+        workflow_lines = process_misc_lines(workflow_lines, version)
+        with open(workflow, 'w') as workflow_stream:
+            workflow_stream.writelines(workflow_lines)
+    
+    # Add a Debian changelog entry
+    debian_changes_file = f"{solution}/debian/changelog"
+    debian_changes_time = time.strftime("%a, %d %b %Y %H:%M:%S") + ' ' + \
+        time.now(datetime.timezone.utc).astimezone().strftime("%z")
+    debian_changes_entry = f"""bskyid ({version.new_version}-1) noble; urgency=medium
+
+  * Please populate changelogs here
+
+ -- Aptivi CEO <ceo@aptivi.anonaddy.com>  {debian_changes_time}
+"""
+    with open(debian_changes_file, 'r') as debian_changes_stream:
+        debian_changes_entry = debian_changes_entry + "\n" + \
+            debian_changes_stream.read()
+    with open(debian_changes_file, 'w') as debian_changes_stream:
+        debian_changes_stream.write(debian_changes_entry)
+
+
+def process_arch_lines(arch_lines, version: VersionInfo):
+    for num in range(0, len(arch_lines)):
+        is_pkgver = 'pkgver=' in arch_lines[num]
+        is_source = 'source=' in arch_lines[num]
+        is_branch = 'branch=' in arch_lines[num]
+        if is_pkgver or is_source:
+            arch_lines[num] = \
+                arch_lines[num].replace(version.old_version,
+                                        version.new_version)
+            if is_branch:
+                arch_lines[num] = \
+                    arch_lines[num].replace(version.old_major,
+                                            version.new_major)
+    return arch_lines
+
+
+def process_misc_lines(lines, version: VersionInfo):
+    for num in range(0, len(lines)):
+        is_oldver = version.old_version in lines[num]
+        if is_oldver:
+            lines[num] = \
+                lines[num].replace(version.old_version,
+                                   version.new_version)
+    return lines
