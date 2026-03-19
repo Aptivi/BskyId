@@ -38,7 +38,8 @@ jobs:
           cp ../*.deb .
         
       - name: Upload package to artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: Debian-Package
           path: "*.deb"
+          archive: false
